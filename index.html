@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自我介绍</title>
+  <style>
+    /* 整体页面布局 */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    /* 自我介绍内容框 */
+ .intro-box {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 50px;
+      border-radius: 50px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: fadeInUp 1s ease;
+
+      /* 去掉彩虹渐变边框相关设置 */
+      border-width: 3px;
+      border-style: solid;
+      border-color: transparent; /* 设置边框颜色为透明，即去掉边框显示 */
+      border-radius: 50px;
+    }
+
+    /* 渐变动画关键帧 */
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* 淡入并向上移动动画关键帧 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 50px;
+    }
+
+    p {
+      color: #666;
+    }
+
+    /* 按钮通用样式 */
+    button {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+      /* 去掉彩虹渐变边框相关设置 */
+      border-width: 2px;
+      border-style: solid;
+      border-color: transparent; /* 设置边框颜色为透明，即去掉边框显示 */
+      border-radius: 50px;
+      transition: transform 0.3s ease-out;
+    }
+
+    /* 按钮悬停样式 */
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      /* 鼠标悬停时移除过渡效果，以便后续动态改变 */
+      transition: none;
+    }
+
+    /* 按钮点击时的动画效果 */
+    button:active {
+      animation: buttonClickAnimation 0.2s ease;
+    }
+
+    /* 按钮点击动画关键帧 */
+    @keyframes buttonClickAnimation {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="intro-box">
+    <h1>关于我</h1>
+    <p>哈喽！这里是米粉会不会刷机的主页，你好啊。</p>
+    <p>这个网页只是一个小小的测试 不必太在意</p>
+    <p>希望能有机会和大家进一步交流，共同成长！</p>
+    <button onclick="window.location.href='https://space.bilibili.com/2080676967?spm_id_from=333.1007.0.0'" target="_blank">哔哩哔哩主页</button>
+    <button onclick="window.location.href='https://www.douyin.com/user/MS4wLjABAAAAd5h8ZYn-1ktilGmhEnXl04G9swHJ0pJF-hejs5fcR0M?from_tab_name=main'" target="_blank">抖音主页</button>
+  </div>
+
+  <script>
+    // 获取所有按钮元素
+    const buttons = document.querySelectorAll('button');
+
+    // 为每个按钮添加鼠标悬停事件监听器
+    buttons.forEach((button) => {
+      button.addEventListener('mouseover', function () {
+        this.addEventListener('mousemove', function (e) {
+          // 获取按钮的宽度和高度
+          const buttonWidth = this.offsetWidth;
+          const buttonHeight = this.offsetHeight;
+
+          // 计算鼠标相对于按钮中心的偏移量
+          const xOffset = e.clientX - (this.offsetLeft + buttonWidth / 2);
+          const yOffset = e.clientY - (this.offsetTop + buttonHeight / 2);
+
+          // 根据偏移量计算晃动的程度，这里可以根据需要调整系数
+          const shakeX = xOffset * 0.2;
+          const shakeY = yOffset * 0.2;
+
+          // 使用CSS transform属性设置按钮的位置偏移，模拟晃动效果
+          this.style.transform = `translate(${shakeX}px, ${shakeY}px) rotate(${shakeX * 0.1}deg)`;
+        });
+
+        // 当鼠标移出按钮时，恢复按钮的初始状态
+        this.addEventListener('mouseout', function () {
+          this.style.transform = 'none';
+        });
+      });
+
+      // 为按钮添加点击事件监听器
+      button.addEventListener('click', function () {
+        // 触发按钮点击时的动画
+        this.classList.add('button-clicked');
+        setTimeout(() => {
+          this.classList.remove('button-clicked');
+        }, 200);
+      });
+    });
+  </script>
+</body>
+
+</html>
